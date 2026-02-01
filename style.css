@@ -1,10 +1,6 @@
 /* =========================
    RESET & BASE
 ========================= */
-* 
-/* =========================
-   RESET & BASE
-========================= */
 * {
   margin: 0;
   padding: 0;
@@ -21,17 +17,6 @@ html, body {
 /* smooth scroll */
 html {
   scroll-behavior: smooth;
-}
-
-/* hlavní pozadí */
-body {
-  min-height: 100vh;
-  overflow-x: hidden;
-  background: radial-gradient(
-    1200px 600px at 20% 10%,
-    #1b1f2a 0%,
-    #0b0f1a 60%
-  );
 }
 
 /* =========================
@@ -52,18 +37,22 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.6;
   color: var(--text);
-  background: radial-gradient(1200px 600px at 20% 10%, #1b1f2a 0%, #0b0f1a 60%);
+
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  background: radial-gradient(
+    1200px 600px at 20% 10%,
+    #1b1f2a 0%,
+    #0b0f1a 60%
+  );
+
+  position: relative; /* pro pseudo-elementy */
 }
 
 /* =========================
    STARFIELD / GALAXY BACKGROUND
 ========================= */
-body{
-  position: relative;
-  overflow-x: hidden;
-}
-
-/* stars layer */
 body::before{
   content:"";
   position: fixed;
@@ -90,7 +79,6 @@ body::before{
   opacity: 0.45;
 }
 
-/* galaxy / nebula glow */
 body::after{
   content:"";
   position: fixed;
@@ -115,28 +103,19 @@ body::after{
   margin: 0 auto;
   padding: 1.5rem;
 }
+
 /* =========================
    LAYOUT
 ========================= */
-
-main {
-  padding-top: 3rem;
-}
-section > h2 {
-  text-align: center;
-}
+main { padding-top: 3rem; }
 
 /* =========================
-   HEADER & NAV
+   HEADER & NAV (DESKTOP DEFAULT)
 ========================= */
 header{
   position: sticky;
   top: 0;
   z-index: 10;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 
   background: rgba(10,12,20,0.55);
   border: 1px solid var(--border);
@@ -148,6 +127,13 @@ header{
   margin-top: 1rem;
 }
 
+.header-inner{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
 header h1{
   font-size: 1.4rem;
   font-weight: 600;
@@ -157,17 +143,27 @@ header h1{
   color: transparent;
   text-shadow: 0 0 18px rgba(80,180,255,0.12);
 }
-.header-inner{
-  display: flex;
-  justify-content: space-between;
+
+.nav-toggle{
+  display: none; /* desktop hidden */
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+  color: var(--text);
+  cursor: pointer;
 }
+
+.nav { display: block; }
 
 nav ul{
   list-style: none;
   display: flex;
   gap: 1.2rem;
+  align-items: center;
 }
 
 nav a,
@@ -178,18 +174,14 @@ nav a:visited{
   font-weight: 500;
   padding: 0.45rem 0.75rem;
   border-radius: 999px;
+  position: relative;
 }
 
-nav a:hover{
-  background: rgba(255,255,255,0.08);
-}
+nav a:hover{ background: rgba(255,255,255,0.08); }
 
 nav a:focus{
   outline: 2px solid rgba(255,255,255,0.6);
   outline-offset: 4px;
-}
-nav a {
-  position: relative;
 }
 
 nav a::after {
@@ -208,34 +200,22 @@ nav a:hover::after {
   width: 70%;
   left: 15%;
 }
+
 .github-btn{
   border: 1px solid rgba(80,180,255,0.45);
   padding: 0.45rem 0.9rem;
   border-radius: 999px;
 
-  background: linear-gradient(
-    90deg,
-    rgba(80,180,255,0.18),
-    rgba(160,80,255,0.18)
-  );
-
+  background: linear-gradient(90deg, rgba(80,180,255,0.18), rgba(160,80,255,0.18));
   color: var(--text);
   position: relative;
   overflow: hidden;
 
-  transition:
-    background 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.15s ease;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 }
 
 .github-btn:hover{
-  background: linear-gradient(
-    90deg,
-    rgba(80,180,255,0.35),
-    rgba(160,80,255,0.35)
-  );
-
+  background: linear-gradient(90deg, rgba(80,180,255,0.35), rgba(160,80,255,0.35));
   box-shadow: 0 0 22px rgba(80,180,255,0.35);
   transform: translateY(-1px);
 }
@@ -245,16 +225,15 @@ nav a:hover::after {
   position: absolute;
   inset: 0;
   border-radius: 999px;
-  background: radial-gradient(120px 40px at 30% 50%, var(--accent-a), transparent 70%),
-              radial-gradient(120px 40px at 70% 50%, var(--accent-b), transparent 70%);
-  opacity: 0.0;
+  background:
+    radial-gradient(120px 40px at 30% 50%, var(--accent-a), transparent 70%),
+    radial-gradient(120px 40px at 70% 50%, var(--accent-b), transparent 70%);
+  opacity: 0;
   transition: opacity 0.2s ease;
   pointer-events: none;
 }
 
-.github-btn:hover::after{
-  opacity: 1;
-}
+.github-btn:hover::after{ opacity: 1; }
 
 /* =========================
    SECTIONS
@@ -263,34 +242,15 @@ section{
   scroll-margin-top: 110px;
   padding: 4rem 0;
   background: transparent;
-  opacity: 1;
-  transform: none;
 }
 
 section h2{
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
   margin-bottom: 1rem;
 }
 
-#about p{
-  max-width: 70ch;
-  color: var(--muted);
-}
-section h2{
-  font-size: 2rem;      /* stejná velikost jako Let's Connect */
-  font-weight: 700;
-  text-align: center;
-}
-#about{
-  text-align: center;
-}
-
-#about p{
-  max-width: 65ch;
-  margin: 0 auto 1.6rem auto; /* mezery mezi odstavci */
-  font-size: 1.05rem;        /* lehce větší text */
-  line-height: 1.75;         /* VELMI důležité */
-  color: var(--muted);
-}
 /* =========================
    HERO
 ========================= */
@@ -312,13 +272,11 @@ section h2{
   letter-spacing: -0.02em;
   margin-bottom: 0.75rem;
 
-  /* stejný gradient jako jméno */
   background: var(--accent);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 
-  /* jemný glow */
   text-shadow:
     0 0 14px rgba(80,180,255,0.35),
     0 0 32px rgba(160,80,255,0.18);
@@ -331,21 +289,34 @@ section h2{
 }
 
 /* =========================
+   ABOUT
+========================= */
+#about{ text-align: center; }
+
+#about p{
+  max-width: 65ch;
+  margin: 0 auto 1.6rem auto;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+/* =========================
    SKILLS
 ========================= */
-#skills{
-  text-align: center;
-}
+#skills{ text-align: center; }
 
 #skills ul{
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;   
+  justify-content: center;
   gap: 0.9rem;
-  max-width: 900px;          
-  margin: 0 auto;            
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0;
 }
+
 #skills li{
   position: relative;
   overflow: hidden;
@@ -362,6 +333,7 @@ section h2{
 
   transition: transform 0.15s ease;
 }
+
 #skills li::before{
   content: "";
   position: absolute;
@@ -369,17 +341,10 @@ section h2{
   padding: 1px;
   border-radius: 999px;
 
-  background: linear-gradient(
-    135deg,
-    var(--accent-a),
-    var(--accent-b),
-    rgba(255,255,255,0.10)
-  );
+  background: linear-gradient(135deg, var(--accent-a), var(--accent-b), rgba(255,255,255,0.10));
 
-  -webkit-mask: linear-gradient(#000 0 0) content-box,
-                linear-gradient(#000 0 0);
-  mask: linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
 
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -388,9 +353,7 @@ section h2{
   pointer-events: none;
 }
 
-#skills li:hover{
-  transform: translateY(-1px);
-}
+#skills li:hover{ transform: translateY(-1px); }
 
 /* =========================
    PROJECTS
@@ -414,26 +377,26 @@ section h2{
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-/* subtle gradient border glow */
 .project-card::before{
   content: "";
   position: absolute;
   inset: 0;
   padding: 1px;
   border-radius: 16px;
+
   background: linear-gradient(135deg, var(--accent-a), var(--accent-b), rgba(255,255,255,0.10));
- -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
- -webkit-mask-composite: xor;
+
+  -webkit-mask-composite: xor;
   mask-composite: exclude;
+
   opacity: 0.6;
   pointer-events: none;
 }
 
-/* keep the glow visible all the time; slightly stronger on hover */
-.project-card:hover::before{
-  opacity: 0.8;
-}
+.project-card:hover::before{ opacity: 0.8; }
 
 .project-card:hover{
   transform: translateY(-2px);
@@ -452,7 +415,6 @@ section h2{
   font-weight: 700;
   margin: 0;
 
-  /* accent color like header name */
   background: var(--accent);
   -webkit-background-clip: text;
   background-clip: text;
@@ -484,9 +446,7 @@ section h2{
   background: rgba(255,255,255,0.03);
 }
 
-.project-links a:hover{
-  background: rgba(255,255,255,0.08);
-}
+.project-links a:hover{ background: rgba(255,255,255,0.08); }
 
 .project-tags{
   list-style: none;
@@ -536,25 +496,26 @@ section h2{
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
-/* subtle gradient border glow (always on) */
 .contact-card::before{
   content: "";
   position: absolute;
   inset: 0;
   padding: 1px;
   border-radius: 18px;
+
   background: linear-gradient(135deg, var(--accent-a), var(--accent-b), rgba(255,255,255,0.10));
+
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+
   -webkit-mask-composite: xor;
   mask-composite: exclude;
+
   opacity: 0.6;
   pointer-events: none;
 }
 
-.contact-card:hover::before{
-  opacity: 0.8;
-}
+.contact-card:hover::before{ opacity: 0.8; }
 
 .contact-title{
   font-size: 1.05rem;
@@ -571,16 +532,17 @@ section h2{
   background: rgba(255,255,255,0.07);
   box-shadow: var(--shadow);
 }
-/* Learning / Education – title center, list left */
-#learning-education h2{
-  text-align: center;
-}
+
+/* =========================
+   LEARNING / EDUCATION
+========================= */
+#learning-education h2{ text-align: center; }
 
 #learning-education ul{
-  max-width: 60ch;     /* šířka textového bloku */
-  margin: 1.5rem auto 0; /* vystředí celý blok */
-  padding-left: 1.2rem;  /* prostor pro odrážky */
-  text-align: left;      /* text normálně zleva */
+  max-width: 60ch;
+  margin: 1.5rem auto 0;
+  padding-left: 1.2rem;
+  text-align: left;
 }
 
 #learning-education li{
@@ -601,38 +563,48 @@ footer{
 }
 
 /* =========================
-   RESPONSIVE
+   RESPONSIVE (MOBILE)
 ========================= */
 @media (max-width: 768px){
   header{
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+    top: env(safe-area-inset-top);
+    z-index: 1000;
+  }
+
+  .header-inner{
+    flex-wrap: wrap;
+  }
+
+  .nav-toggle{
+    display: inline-flex;
+  }
+
+  .nav{
+    display: none;
+    width: 100%;
+    margin-top: 0.75rem;
+  }
+
+  header.nav-open .nav{
+    display: flex;
   }
 
   nav ul{
-    flex-wrap: wrap;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 0.75rem;
   }
 
-  section{
-    padding: 3rem 0;
-  }
+  section{ padding: 3rem 0; }
 
-  #hero h2{
-    font-size: 2rem;
-  }
-  .container {
-    padding: 1rem;
-  }
-  #hero {
-    padding: 2rem 1rem;
-  }
+  .container{ padding: 1rem; }
+
+  #hero{ padding: 2rem 1rem; }
+
+  #hero h2{ font-size: 2rem; }
+
   #skills ul,
   .projects-grid,
-  .contact-grid {
-    gap: 1rem;
-  }
+  .contact-grid{ gap: 1rem; }
 }
-
-
