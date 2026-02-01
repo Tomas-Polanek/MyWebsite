@@ -18,7 +18,12 @@ html, body {
 html {
   scroll-behavior: smooth;
 }
-
+/* =========================
+   If no animations preferred
+========================= */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important; }
+}
 /* =========================
    THEME
 ========================= */
@@ -125,6 +130,14 @@ header{
 
   padding: 1rem 1.25rem;
   margin-top: 1rem;
+
+
+  transition:
+    padding .22s ease,
+    background .22s ease,
+    border-color .22s ease,
+    box-shadow .22s ease,
+    transform .22s ease;
 }
 
 .header-inner{
@@ -143,6 +156,19 @@ header h1{
   color: transparent;
 }
 
+header.is-scrolled{
+  background: rgba(10,12,20,0.72);
+  border-color: rgba(255,255,255,0.14);
+  box-shadow: 0 18px 60px rgba(0,0,0,0.55);
+  transform: translateY(-2px);
+  padding : 0.65rem 1.1rem;
+}
+
+header.is-scrolled .header-inner{
+  transform: translateY(-1px);
+  transition: transform .22s ease;
+}
+
 /* desktop: burger skrytý, menu viditelné */
 .nav-toggle{ display: none; }
 .nav{ display: block; }
@@ -153,6 +179,140 @@ nav ul{
   flex-direction: row;
   align-items: center;
   gap: 1.2rem;
+}
+
+nav a,
+nav a:visited{
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  background: transparent;
+  border: 1px solid transparent;
+
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* =========================
+   NAV LINKS (HOVER = OUTLINE ONLY)
+========================= */
+nav a:not(.github-btn):hover{
+  background: transparent;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.12),
+    0 0 18px rgba(80,180,255,0.18),
+    0 0 24px rgba(160,80,255,0.12);
+  transform: translateY(-1px);
+}
+
+nav a:not(.github-btn):hover::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:999px;
+  padding:2px;
+  background: var(--accent);
+
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite: exclude;
+
+  pointer-events:none;
+  opacity: .85;
+}
+
+/* =========================
+   NAV LINKS (ACTIVE)
+========================= */
+nav a.active:not(.github-btn){
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  box-shadow:
+    0 0 18px rgba(80,180,255,0.25),
+    0 0 24px rgba(160,80,255,0.15);
+}
+
+nav a.active:not(.github-btn)::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:999px;
+  padding:2px;
+  background: var(--accent);
+
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite: exclude;
+
+  pointer-events:none;
+  opacity: .9;
+}
+
+/* =========================
+   GITHUB BUTTON (GLASS + GRADIENT BORDER)
+========================= */
+nav a.github-btn,
+nav a.github-btn:visited{
+  position: relative;
+  isolation: isolate;
+
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border: 1px solid transparent;
+}
+
+nav a.github-btn::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+
+  background: var(--accent);
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+nav a.github-btn:hover{
+  background: rgba(255,255,255,0.10);
+  box-shadow: 0 0 18px rgba(80,180,255,0.35);
+  transform: translateY(-1px);
+}
+
+nav a.github-btn:hover::before{
+  opacity: 1;
+}
+
+nav a:focus{
+  outline: 2px solid rgba(255,255,255,0.6);
+  outline-offset: 4px;
 }
 
 /* =========================
@@ -250,6 +410,32 @@ section h2{
   margin: 0.75rem auto 0;
   color: var(--muted);
 }
+/* HERO – animated text */
+#hero h2,
+#hero p{
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(6px);
+  transition:
+    opacity .65s ease,
+    transform .65s ease,
+    filter .65s ease;
+}
+
+#hero p{
+  transition-delay: .10s;
+}
+
+/* když je hero vidět */
+#hero.is-visible h2,
+#hero.is-visible p{
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+#hero h2{
+  background-size: 200% 200%;
+}
 
 /* =========================
    ABOUT
@@ -337,7 +523,7 @@ section h2{
   background: var(--card);
   backdrop-filter: blur(10px);
 
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
 }
 
 .project-card::before{
@@ -362,8 +548,31 @@ section h2{
 .project-card:hover::before{ opacity: 0.8; }
 
 .project-card:hover{
-  transform: translateY(-2px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow);
+}
+
+.project-card:hover h3{
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+
+.project-card p{
+  transition: opacity .18s ease;
+}
+
+.project-card:hover p{
+  opacity: .95;
+}
+
+.project-tags li{
+  transition: transform .18s ease, background .18s ease, border-color .18s ease;
+}
+
+.project-card:hover .project-tags li{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.16);
 }
 
 .project-head{
@@ -386,6 +595,7 @@ section h2{
   text-shadow:
     0 0 12px rgba(80,180,255,0.28),
     0 0 26px rgba(160,80,255,0.14);
+  transition: transform .18s ease, filter .18s ease;
 }
 
 .project-card p{
@@ -456,7 +666,7 @@ section h2{
   border: 1px solid var(--border);
   backdrop-filter: blur(10px);
 
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
 }
 
 .contact-card::before{
@@ -483,17 +693,27 @@ section h2{
 .contact-title{
   font-size: 1.05rem;
   font-weight: 600;
+  transition: transform .18s ease, opacity .18s ease;
 }
 
 .contact-sub{
   font-size: 0.9rem;
   color: var(--muted);
+  transition: transform .18s ease, opacity .18s ease;
 }
 
 .contact-card:hover{
-  transform: translateY(-4px);
+  transform: translateY(-5px);
   background: rgba(255,255,255,0.07);
   box-shadow: var(--shadow);
+}
+
+.contact-card:hover .contact-title{
+  transform: translateY(-1px);
+}
+
+.contact-card:hover .contact-sub{
+  opacity: .95;
 }
 
 /* =========================
