@@ -7,8 +7,10 @@
     <link rel="manifest" href="./site.webmanifest">
     <meta name="theme-color" content="#0b0f1a">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests;">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Tomáš Polánek | CV</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
   
 </head>
 
@@ -32,7 +34,7 @@
           <li>
           <a href="https://github.com/Tomas-Polanek"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             class="github-btn">
             GitHub ↗
           </a>
@@ -74,7 +76,7 @@
       <h2>Skills</h2>
        <ul>
          <li>JavaScript (fundamentals)</li>
-         <li>HTML & CSS</li>
+         <li>HTML &amp; CSS</li>
          <li>Node.js (basic)</li>
          <li>Git & GitHub</li>
          <li>Problem-solving</li>
@@ -90,8 +92,8 @@
           <div class="project-head">
             <h3>Simple Web App</h3>
             <div class="project-links">
-              <a href="#" target="_blank" rel="noopener">Live</a>
-              <a href="#" target="_blank" rel="noopener">Code</a>
+              <a href="#" target="_blank" rel="noopener noreferrer">Live</a>
+              <a href="#" target="_blank" rel="noopener noreferrer">Code</a>
             </div>
           </div>
 
@@ -108,7 +110,7 @@
           <div class="project-head">
             <h3>Node.js Practice</h3>
             <div class="project-links">
-              <a href="#" target="_blank" rel="noopener">Code</a>
+              <a href="#" target="_blank" rel="noopener noreferrer">Code</a>
             </div>
           </div>
 
@@ -145,17 +147,17 @@
       <span class="contact-sub">tomaspolanek1@icloud.com</span>
     </a>
 
-    <a class="contact-card" href="https://www.linkedin.com/in/tom%C3%A1%C5%A1-pol%C3%A1nek-48a587348/?locale=en_US" target="_blank" rel="noopener">
+    <a class="contact-card" href="https://www.linkedin.com/in/tom%C3%A1%C5%A1-pol%C3%A1nek-48a587348/?locale=en_US" target="_blank" rel="noopener noreferrer">
       <span class="contact-title">LinkedIn</span>
       <span class="contact-sub">Professional profile</span>
     </a>
 
-    <a class="contact-card" href="https://github.com/Tomas-Polanek/" target="_blank" rel="noopener">
+    <a class="contact-card" href="https://github.com/Tomas-Polanek/" target="_blank" rel="noopener noreferrer">
       <span class="contact-title">GitHub</span>
       <span class="contact-sub">Projects & code</span>
     </a>
 
-    <a class="contact-card" href="https://www.instagram.com/tomas_polanek/" target="_blank" rel="noopener">
+    <a class="contact-card" href="https://www.instagram.com/tomas_polanek/" target="_blank" rel="noopener noreferrer">
       <span class="contact-title">Instagram</span>
       <span class="contact-sub">Personal</span>
     </a>
@@ -167,6 +169,6 @@
     <p>© 2026 Tomáš Polánek</p>
   </footer>
   
-<script src="script.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
